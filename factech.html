@@ -1,0 +1,629 @@
+f
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Factech Computer Academy | Lagos, Nigeria</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0a4d8c;
+      --accent: #ff7f00;
+      --dark: #121212;
+      --light: #f8f9fa;
+      --gray: #555;
+    }
+    [data-theme="dark"] {
+      --dark: #0a0a0a;
+      --light: #1f1f1f;
+      --gray: #bbb;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.7;
+      color: #333;
+      background: var(--light);
+      transition: background 0.4s;
+    }
+    [data-theme="dark"] body { color: #ddd; }
+
+    header {
+      background: rgba(10, 77, 140, 0.97);
+      color: white;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 700;
+    }
+    .logo span { color: var(--accent); }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    nav a:hover, nav a.active { color: var(--accent); }
+    .hamburger { display: none; font-size: 1.9rem; cursor: pointer; }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(10,77,140,0.85), rgba(10,77,140,0.85)), url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    .hero-content h1 {
+      font-size: 3.8rem;
+      margin-bottom: 1rem;
+      animation: fadeInUp 1.2s ease;
+    }
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn {
+      padding: 15px 35px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.4s;
+      font-weight: 600;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #e66a00;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255,127,0,0.4);
+    }
+
+    section { padding: 90px 5%; }
+    h2 {
+      text-align: center;
+      font-size: 2.9rem;
+      margin-bottom: 3.5rem;
+      color: var(--primary);
+    }
+    [data-theme="dark"] h2 { color: #ffaa33; }
+
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      padding: 60px 5%;
+    }
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* Courses */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .course-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      transition: all 0.4s;
+    }
+    [data-theme="dark"] .course-card { background: #1f1f1f; }
+    .course-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .course-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+    }
+    .course-info { padding: 1.8rem; }
+    .course-info h3 { color: var(--primary); margin-bottom: 0.8rem; }
+
+    /* Why Us & Gallery */
+    .why-grid, .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .why-card {
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] .why-card { background: #1f1f1f; }
+    .why-card i { font-size: 3.2rem; color: var(--accent); margin-bottom: 1rem; }
+
+    /* Gallery */
+    .gallery-grid img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: transform 0.4s;
+      cursor: pointer;
+    }
+    .gallery-grid img:hover { transform: scale(1.05); }
+
+    /* Testimonials */
+    .testimonial-slider {
+      max-width: 850px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .testimonial {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      display: none;
+    }
+    [data-theme="dark"] .testimonial { background: #1f1f1f; }
+    .testimonial.active { display: block; }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 70px 5% 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 3rem;
+    }
+
+    /* Floating WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 5px 20px rgba(37,211,102,0.5);
+      z-index: 999;
+      transition: all 0.3s;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.15);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      width: 95%;
+      max-width: 520px;
+      max-height: 95vh;
+      overflow-y: auto;
+    }
+    [data-theme="dark"] .modal-content { background: #1f1f1f; color: #ddd; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(60px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      nav ul {
+        position: fixed;
+        top: 76px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 76px);
+        background: var(--primary);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+        transition: 0.5s;
+      }
+      nav ul.active { left: 0; }
+      .hero-content h1 { font-size: 2.7rem; }
+    }
+  </style>
+</head>
+<body data-theme="light">
+
+  <!-- Header -->
+  <header>
+    <div class="logo">Factech <span>Academy</span></div>
+    <nav>
+      <ul id="nav-menu">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#why">Why Us</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex; gap:15px; align-items:center;">
+      <button onclick="toggleDarkMode()" style="background:none; border:none; color:white; font-size:1.4rem; cursor:pointer;" title="Toggle Dark Mode">
+        <i class="fas fa-moon" id="theme-icon"></i>
+      </button>
+      <div class="hamburger" id="hamburger">☰</div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Unlock Your Digital Future</h1>
+      <p>Premier Computer & Technology Academy in Lagos, Nigeria</p>
+      <button class="btn btn-primary" onclick="showEnrollModal()">Join Our New Batch – April 2026</button>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div>
+      <div class="stat-number" data-target="1200">0</div>
+      <p>Students Trained</p>
+    </div>
+    <div>
+      <div class="stat-number" data-target="95">0</div>
+      <p>Success Rate (%)</p>
+    </div>
+    <div>
+      <div class="stat-number" data-target="28">0</div>
+      <p>Certified Courses</p>
+    </div>
+    <div>
+      <div class="stat-number" data-target="450">0</div>
+      <p>Placed in Jobs</p>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Factech Computer Academy</h2>
+    <div style="max-width:950px; margin:0 auto; text-align:center; font-size:1.2rem;">
+      <p>Located in Alapere, Ketu, Lagos, Factech Computer Academy is a leading vocational IT institute committed to delivering practical, industry-driven training.</p>
+      <p>Since our inception, we have empowered over 1,200 students with in-demand digital skills, helping them secure better jobs, start businesses, or advance their careers.</p>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section id="courses" style="background:var(--light);">
+    <h2>Our Professional Courses</h2>
+    <div class="courses-grid">
+      <div class="course-card">
+        <img src="https://picsum.photos/id/201/600/400" alt="Office Suite">
+        <div class="course-info">
+          <h3>Computer Fundamentals & Microsoft Office</h3>
+          <p>MS Word, Excel, PowerPoint, Access</p>
+          <p><strong>Duration:</strong> 4 Weeks | <strong>₦45,000</strong></p>
+          <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="showEnrollModal()">Enroll Now</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <img src="Image/td.jpg" alt="Graphic Design">
+        <div class="course-info">
+          <h3>Graphic Design Professional</h3>
+          <p>Photoshop, CorelDraw, Illustrator, Ai tools</p>
+          <p><strong>Duration:</strong> 8 Weeks | <strong>₦155,000</strong></p>
+          <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="showEnrollModal()">Enroll Now</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <img src="https://picsum.photos/id/180/600/400" alt="Web Development">
+        <div class="course-info">
+          <h3>Full Stack Web Development</h3>
+          <p>HTML, CSS, JavaScript, React, Node.js, MongoDB, Generative Ai </p>
+          <p><strong>Duration:</strong> 12 Weeks | <strong>₦1,000,000</strong></p>
+          <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="showEnrollModal()">Enroll Now</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <img src="Image/digit.jpg" alt="Digital Marketing">
+        <div class="course-info">
+          <h3>Digital Marketing & Social Media</h3>
+          <p>SEO, Google Ads, Facebook/Instagram Ads, Content Creation</p>
+          <p><strong>Duration:</strong> 6 Weeks | <strong>₦120,000</strong></p>
+          <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="showEnrollModal()">Enroll Now</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <img src="Image/images.jpg" alt="Data Analysis">
+        <div class="course-info">
+          <h3>Data Analysis with Excel & Power BI</h3>
+          <p>Advanced Excel, Power BI, SQL Basics, Dashboard Creation</p>
+          <p><strong>Duration:</strong> 8 Weeks | <strong>₦800,000</strong></p>
+          <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="showEnrollModal()">Enroll Now</button>
+        </div>
+      </div>
+      <div class="course-card">
+        <img src="Image/cyba.jpg" alt="Cybersecurity">
+        <div class="course-info">
+          <h3>Cybersecurity Fundamentals</h3>
+          <p>Ethical Hacking Basics, Network Security, Cyber Awareness</p>
+          <p><strong>Duration:</strong> 6 Weeks | <strong>₦1,500,000</strong></p>
+          <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="showEnrollModal()">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Us -->
+  <section id="why">
+    <h2>Why Choose Factech?</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <h3>Expert Trainers</h3>
+        <p>Certified instructors with 5+ years industry experience</p>
+      </div>
+      <div class="why-card">
+        <i class="fas fa-laptop-code"></i>
+        <h3>100% Practical Training</h3>
+        <p>Modern computer lab with one student per system</p>
+      </div>
+      <div class="why-card">
+        <i class="fas fa-certificate"></i>
+        <h3>Recognized Certificates</h3>
+        <p>Nationally recognized and employer-approved</p>
+      </div>
+      <div class="why-card">
+        <i class="fas fa-briefcase"></i>
+        <h3>Job Placement Assistance</h3>
+        <p>CV reviews, mock interviews & job referrals</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" style="background:var(--light);">
+    <h2>Our Academy in Pictures</h2>
+    <div class="gallery-grid">
+      <img src="Image/sd.png" onclick="showImage(this.src)" alt="Classroom">
+      <img src="Image/67.jpg" onclick="showImage(this.src)" alt="Students">
+      <img src="Image/wq.jpg" onclick="showImage(this.src)" alt="Lab">
+      <img src="Image/12.png" onclick="showImage(this.src)" alt="Graduation">
+      <img src="https://picsum.photos/id/870/600/400" onclick="showImage(this.src)" alt="Workshop">
+      <img src="https://picsum.photos/id/201/600/400" onclick="showImage(this.src)" alt="Group Photo">
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section>
+    <h2>Student Success Stories</h2>
+    <div class="testimonial-slider" id="testimonial-slider">
+      <div class="testimonial active">
+        <p>"Factech gave me the confidence and skills to start my own graphic design business. Best decision I made in 2025!"</p>
+        <strong>— Blessing Adebayo, Graphic Designer & Entrepreneur</strong>
+      </div>
+      <div class="testimonial">
+        <p>"The Full Stack Web Development course was intensive but worth it. I now work remotely for a UK company."</p>
+        <strong>— Olumide Johnson, Web Developer</strong>
+      </div>
+      <div class="testimonial">
+        <p>"I completed the Data Analysis course and got employed by a bank within one month. Thank you Factech!"</p>
+        <strong>— Fatima Yusuf, Data Analyst</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <div style="max-width:700px; margin:0 auto; text-align:center;">
+      <p><strong>Address:</strong> 15 Agidi Road,Iyakan Market, Alapere, Ketu, Lagos, Nigeria</p>
+      <p><strong>Phone:</strong> +234 705 040 2000 | +234 8137617324</p>
+      <p><strong>Email:</strong> info@factechacademy.com.ng</p>
+      <br>
+      <form onsubmit="handleSubmit(event)">
+        <input type="text" placeholder="Full Name" required style="width:100%; padding:14px; margin:10px 0; border-radius:8px; border:1px solid #ccc;">
+        <input type="email" placeholder="Email Address" required style="width:100%; padding:14px; margin:10px 0; border-radius:8px; border:1px solid #ccc;">
+        <textarea placeholder="Message or preferred course" rows="5" style="width:100%; padding:14px; margin:10px 0; border-radius:8px; border:1px solid #ccc;"></textarea>
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:16px;">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3 style="color:var(--accent);">Factech Computer Academy</h3>
+        <p>Building digital skills for a brighter tomorrow in Lagos.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <p><a href="#courses" style="color:#ccc;">All Courses</a></p>
+        <p><a href="#" style="color:#ccc;">Admissions</a></p>
+        <p><a href="#" style="color:#ccc;">Student Portal</a></p>
+      </div>
+      <div>
+        <h4>Connect With Us</h4>
+        <div style="font-size:1.8rem; margin-top:10px;">
+          <a href="#" style="color:#ccc; margin-right:15px;"><i class="fab fa-facebook"></i></a>
+          <a href="#" style="color:#ccc; margin-right:15px;"><i class="fab fa-instagram"></i></a>
+          <a href="#" style="color:#ccc; margin-right:15px;"><i class="fab fa-linkedin"></i></a>
+          <a href="#" style="color:#ccc;"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:50px; opacity:0.6;">© 2026 Factech Computer Academy, Lagos, Nigeria. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/2347050402000" target="_blank" class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Enrollment Modal -->
+  <div class="modal" id="enrollModal">
+    <div class="modal-content">
+      <h2 style="text-align:center; margin-bottom:1.5rem; color:var(--primary);">Enroll Today</h2>
+      <form onsubmit="submitEnroll(event)">
+        <select style="width:100%; padding:14px; margin-bottom:12px; border-radius:8px;">
+          <option value="">Select a Course</option>
+          <option>Computer Fundamentals & Microsoft Office</option>
+          <option>Graphic Design Professional</option>
+          <option>Full Stack Web Development</option>
+          <option>Digital Marketing & Social Media</option>
+          <option>Data Analysis with Excel & Power BI</option>
+          <option>Cybersecurity Fundamentals</option>
+        </select>
+        <input type="text" placeholder="Full Name" required style="width:100%; padding:14px; margin-bottom:12px; border-radius:8px;">
+        <input type="tel" placeholder="Phone Number" required style="width:100%; padding:14px; margin-bottom:12px; border-radius:8px;">
+        <input type="email" placeholder="Email Address" style="width:100%; padding:14px; margin-bottom:12px; border-radius:8px;">
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:16px; margin-top:10px;">Submit Application</button>
+      </form>
+      <button onclick="closeModal()" style="width:100%; padding:14px; background:#ddd; border:none; border-radius:8px; margin-top:10px;">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      const body = document.documentElement;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      document.getElementById('theme-icon').classList.toggle('fa-moon');
+      document.getElementById('theme-icon').classList.toggle('fa-sun');
+    }
+
+    // Mobile Menu
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
+
+    // Smooth Scroll + Active Link
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Animated Counters
+    function animateCounters() {
+      const counters = document.querySelectorAll('.stat-number');
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const increment = target / 80;
+        let count = 0;
+        const timer = setInterval(() => {
+          count += increment;
+          if (count >= target) {
+            counter.textContent = target;
+            clearInterval(timer);
+          } else {
+            counter.textContent = Math.floor(count);
+          }
+        }, 30);
+      });
+    }
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) animateCounters();
+    });
+
+    // Testimonial Auto Rotate
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.testimonial');
+    setInterval(() => {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }, 7000);
+
+    // Modal
+    function showEnrollModal() {
+      document.getElementById('enrollModal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('enrollModal').style.display = 'none';
+    }
+
+    // Form Handlers
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert("✅ Thank you! Your message has been sent successfully. We will reply within 24 hours.");
+    }
+    function submitEnroll(e) {
+      e.preventDefault();
+      alert("🎉 Application Received! Our admissions team will contact you shortly via phone or WhatsApp.");
+      closeModal();
+    }
+
+    // Simple Image Lightbox
+    function showImage(src) {
+      const lightbox = document.createElement('div');
+      lightbox.style.cssText = 'position:fixed; inset:0; background:rgba(0,0,0,0.9); display:flex; align-items:center; justify-content:center; z-index:3000;';
+      lightbox.innerHTML = `<img src="${src}" style="max-width:90%; max-height:90%; border-radius:12px;">`;
+      lightbox.onclick = () => lightbox.remove();
+      document.body.appendChild(lightbox);
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', e => {
+      if (e.key === "Escape") {
+        const modal = document.getElementById('enrollModal');
+        if (modal.style.display === 'flex') closeModal();
+      }
+    });
+
+    // Initialize
+    console.log("%c✅ Factech Computer Academy Website Loaded Successfully!", "color:#ff7f00; font-size:14px;");
+  </script>
+</body>
+</html>
